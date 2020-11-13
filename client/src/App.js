@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import NavBar from './Components/NavBar'
+import "./App.css"
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import Home from './Screens/Home'
+import Post from './Screens/Post'
+import Signin from './Screens/Signin'
+import Signup from './Screens/Signup'
+import CreatePost from './Screens/CreatePost'
 
-function App() {
+
+const Routing = ()=>{
+  return(
+    <Switch>
+      <Route exact path="/" >
+      <Home />
+      </Route>
+      <Route exact path="/:post_id" >
+      <Post />
+      </Route>
+      <Route path="/signin">
+        <Signin />
+      </Route>
+      <Route path="/signup">
+        <Signup />
+      </Route>
+      <Route path="/create">
+        <CreatePost/>
+      </Route>
+    </Switch>
+  )
+}
+
+const App=() => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <NavBar />
+      <Routing />
+      
+    </BrowserRouter>
   );
 }
 
