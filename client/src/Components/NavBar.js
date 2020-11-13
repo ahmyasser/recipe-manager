@@ -7,7 +7,7 @@ const Navbar = ()=>{
    const renderList = ()=>{
     if(state){
         return [
-          <li  key="1"><Link to="/new-message">Create</Link></li>,
+          <li  key="1"><Link to="/create">Create</Link></li>,
           <li  key="2">
           <Link to="/signin"
          onClick={()=>{

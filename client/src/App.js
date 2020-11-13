@@ -29,16 +29,16 @@ const Routing = ()=>{
       <Route exact path="/" >
       <Home />
       </Route>
-      <Route path="/signup">
+      <Route exact path="/signup">
         <Signup />
       </Route>
-      <Route path="/signin">
-        <Signin />
-      </Route>
-      <Route path="/create">
+      <Route exact path="/create">
         <CreatePost/>
       </Route>
-      <Route path="/post/:post_id" >
+      <Route exact path="/signin">
+        <Signin />
+      </Route>
+      <Route exact path="/post/:post_id" >
       <Post />
       </Route>
       
