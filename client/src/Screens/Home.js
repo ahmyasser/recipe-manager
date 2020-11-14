@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 const Home  = ()=>{
     const [data,setData] = useState([])
@@ -34,7 +34,8 @@ const Home  = ()=>{
         })
     }
    return (
-          data?       <div>
+          data?       
+          <div>
            {
                data.map(item=>{
                    return(
@@ -43,14 +44,17 @@ const Home  = ()=>{
                               <i className="material-icons" onClick={()=>deletePost(item._id)}>delete</i>
                             
                             </h1>
+                            <Link to={`/post/${item._id}`}>
                             <div>
                                 <img src={item.pic} alt=""/>
                             </div>
                                 <h1>{item.title}</h1>
                                 <p>{item.recipe}</p>
                                 <p>{item.ingredient} </p>
-                            </div>
+                              </Link>
 
+                                </div>
+                           
                    )
                })
            }
