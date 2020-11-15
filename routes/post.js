@@ -6,7 +6,7 @@ const Post =  mongoose.model("Post")
 
 
 
-router.post('/post',requireLogin,(req,res)=>{
+router.post('/createpost',requireLogin,(req,res)=>{
     const {title,recipe,ingredient,pic} = req.body 
     if(!title || !recipe || !ingredient || !pic){
       return  res.status(422).json({error:"Plase add all the fields"})
@@ -37,18 +37,23 @@ router.get('/posts',requireLogin,(req,res)=>{
     })
 })
 
-router.get('/post/:postId',requireLogin,(req,res)=>{
+router.get('/getpost/:postId',requireLogin,(req,res)=>{
     Post.findById({_id:req.params.postId})
     .then(post=>{
-        res.json({post})
+        if(post.postedBy._id.toString() !== req.user._id.toString()){
+            return res.status(401).json({error:'Unauthorized'})
+            }
+ 
+        return res.json({post})
     })
     .catch(err=>{
-        console.log(err)
+       return console.log(err)
     })
 })
 
-router.put('/post/:postId',requireLogin,(req,res)=>{
+router.put('/updatepost/:postId',requireLogin,(req,res)=>{
     const {title, recipe, ingredient, pic} = req.body 
+   
     if(!title || !recipe || !ingredient || !pic){
       return  res.status(422).json({error:"Plase add all the fields"})
     }
@@ -58,20 +63,25 @@ router.put('/post/:postId',requireLogin,(req,res)=>{
         recipe, 
         ingredient, 
         pic
-    },{new:true})
-    .populate("postedBy","_id name")
-    .exec((err,result)=>{
-        if(err){
+    },{new:true,useFindAndModify:true}).populate("postedBy","_id")
+    .exec((err,post)=>{
+   
+        if(err || !post){
             return res.status(422).json({error:err})
-        }else{
-            res.json(result)
         }
+   
+        if(post.postedBy._id.toString() !== req.user._id.toString()){
+            return res.status(401).json({error:'Unauthorized'})
+            }
+  
+            console.log(post)
+         return res.json({post});
+        })
     })
-})
 
 
 router.delete('/post/:postId',requireLogin,(req,res)=>{
-    Post.findOne({_id:req.params.postId})
+    Post.findOne({_id:req.params.postId},{useFindAndModify:true})
     .populate("postedBy","_id")
     .exec((err,post)=>{
         if(err || !post){

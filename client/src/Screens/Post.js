@@ -1,9 +1,13 @@
 import {useState, useEffect} from 'react'
-import {useHistory} from 'react-router-dom'
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory, Link} from 'react-router-dom'
+
+import styled from "styled-components";
+import {Container} from '../style';
+
 
 const Post=() => {
-  let { post_id } = useParams();
+
+    let { post_id } = useParams();
   const history = useHistory()
 
   const [title,setTitle] = useState("")
@@ -94,20 +98,41 @@ const postDetails = ()=>{
     })
 }
 
+const UpdateWrapper = styled.div`
+width:900px;
+display:flex;
+justify-content:space-between;
+align-items:Center;
+`;
 
+
+const ViewWrapper = styled.div`
+margin-right:20px;
+& img {
+    height:60vh;
+    width:80vh;
+    }
+    
+`;
+
+const Wraper= styled.div`
+display:flex;
+flex-direction:column;
+`;
 
 
     return (
-      <div>
-      <h1 >
-      <i className="material-icons" onClick={()=>deletePost(post_id)}>delete</i>
-      </h1>
+      <Container>
+      <UpdateWrapper>
 
-      <div>
+      <ViewWrapper>
+      <h1>
+      <Link to="" onClick={()=>deletePost(post_id)}>delete</Link>
+      </h1>
           <img src={url} alt=""/>
-      </div>
-          <div>
-          <input 
+      </ViewWrapper>
+      <Wraper>
+      <input 
           type="text"
            placeholder="title"
            value={title}
@@ -134,11 +159,10 @@ const postDetails = ()=>{
            <button onClick={()=>{updateMessage()}}>
                Submit update
            </button>
+           </Wraper>
+      </UpdateWrapper>
 
-      </div>
-
-
-          </div>
+          </Container>
 
 
           

@@ -14,6 +14,9 @@ export const UserContext = createContext()
 
 
 const Routing = ()=>{
+
+
+
   const history = useHistory()
   const {dispatch} = useContext(UserContext)
   useEffect(()=>{
@@ -27,7 +30,7 @@ const Routing = ()=>{
   return(
     <Switch>
       <Route exact path="/" >
-      <Home />
+        <Home />
       </Route>
       <Route exact path="/signup">
         <Signup />
@@ -48,12 +51,13 @@ const Routing = ()=>{
 
 const App=() => {
   const [state,dispatch] = useReducer(reducer,initialState)
+
+
   return (
     <UserContext.Provider value={{state,dispatch}}>
     <BrowserRouter>
       <NavBar />
       <Routing />
-      
     </BrowserRouter>
     </UserContext.Provider>
   );

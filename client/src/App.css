@@ -1,0 +1,30 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+button {
+    font-size:20px;
+    width:50%;
+    height:40px;
+    align-self:center;
+    color:black;
+    background-color: white;
+}
+
+button:hover {
+    background-color: black;
+    color:white;
+}
+
+input {
+    margin:10px;
+    font-size:20px;
+    padding:3px;
+    width:70%;                                                
+    }

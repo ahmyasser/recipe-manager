@@ -1,9 +1,42 @@
 import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
+import styled from "styled-components";
+import {Container} from '../style';
 
 const CreatePost = ()=>{
+
+    const CreateWrapper = styled.div`
+    width:900px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    & input {
+    margin:10px;
+    font-size:20px;
+    padding:3px;
+    width:50%;                                                
+    }
+    & button {
+        font-size:20px;
+        width:30%;
+        height:40px;
+        align-self:center;
+        color:black;
+        background-color: white;
+    }
+    
+    & button:hover {
+
+        background-color: black;
+        color:white;
+
+    }
+
+    `;
+
     const history = useHistory()
+
     const [title,setTitle] = useState("")
     const [recipe,setRecipe] = useState("")
     const [ingredient,setIngredient] = useState("")
@@ -61,39 +94,38 @@ const CreatePost = ()=>{
  
 
    return(
-       <div>
+       <Container>
+       <CreateWrapper>
            <input 
            type="text"
-            placeholder="title"
+            placeholder="Title"
             value={title}
             onChange={(e)=>setTitle(e.target.value)}
             />
            <input
-            type="text"
-             placeholder="recipe"
+            type="textarea"
+             placeholder="Recipe"
              value={recipe}
             onChange={(e)=>setRecipe(e.target.value)}
              />
              <input
-             type="text"
-              placeholder="ingredient"
+             type="textarea"
+              placeholder="Ingredient"
               value={ingredient}
              onChange={(e)=>setIngredient(e.target.value)}
               />
            <div>
             <div>
-                <span>Uplaod Image</span>
+                <h2>Uplaod Image</h2>
                 <input type="file" onChange={(e)=>setImage(e.target.files[0])} />
-            </div>
-            <div>
-                <input type="text" />
             </div>
             </div>
             <button onClick={()=>postDetails()}>
                 Submit post
             </button>
 
-       </div>
+       </CreateWrapper>
+       </Container>
    )
 }
 

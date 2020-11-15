@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
 import {Link,  useHistory} from 'react-router-dom';
-
+import styled from "styled-components";
+import {Container} from "../style"
 const Signup = ()=>{
+
     const history = useHistory();
     const [name,setName] = useState("")
     const [password,setPasword] = useState("")
@@ -36,9 +38,30 @@ const Signup = ()=>{
     }
     const PostData = ()=>uploadFields();
 
-    return( <div className="mycard">
-    <div className="card auth-card input-field">
-      <h2>Guestbook</h2>
+    const SignupWrapper=styled.div`
+    width:900px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:Center;
+    & h2 {
+        font-size:30px;
+        margin:30px;
+    }
+    & input {
+        padding:10px;
+        margin:10px;
+    }
+    & button {
+        width:73%;
+    }
+
+`;
+
+    return(
+ <Container>
+    <SignupWrapper>
+      <h2>MyRecipes</h2>
       <input
       type="text"
       placeholder="name"
@@ -62,12 +85,11 @@ const Signup = ()=>{
       >
           SignUP
       </button>
-      <h5>
+      <h2>
           <Link to="/signin">Login</Link>
-      </h5>
-
-  </div>
-</div>
+      </h2>
+      </SignupWrapper>
+  </Container>
     );
 }
 

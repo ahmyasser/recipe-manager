@@ -1,6 +1,9 @@
-import React,{useState,useContext,} from 'react'
+import {useState,useContext,} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import {UserContext} from '../App'
+import styled from "styled-components";
+import { Container } from "../style";
+import Signup from './Signup';
 
 const Signin  = ()=>{
     const {dispatch} = useContext(UserContext)
@@ -37,10 +40,31 @@ const Signin  = ()=>{
             console.log(err)
         })
     }
+
+
+    const SignupWrapper=styled.div`
+    width:900px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:Center;
+    & h2 {
+        font-size:30px;
+        margin:30px;
+    }
+    & input {
+        padding:10px;
+        margin:10px;
+    }
+    & button {
+        width:73%;
+    }
+
+`;
    return (
-      <div className="mycard">
-          <div className="card auth-card input-field">
-            <h2>Guestbook</h2>
+      <Container>
+          <SignupWrapper>
+            <h2>MyRecipes</h2>
             <input
             type="text"
             placeholder="email"
@@ -58,12 +82,12 @@ const Signin  = ()=>{
             >
                 Login
             </button>
-            <h5>
+            <h2>
                 <Link to="/signup">Sign Up</Link>
-            </h5>
+            </h2>
            
-        </div>
-      </div>
+        </SignupWrapper>
+      </Container>
    )
 }
   export default Signin;

@@ -1,7 +1,20 @@
 import React,{useState,useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import styled from "styled-components";
+
+import Card from '../Components/Card'
 
 const Home  = ()=>{
+
+    const HomeWrapper = styled.section`
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+  `;
+
+
+
     const [data,setData] = useState([])
     useEffect(()=>{
        fetch('/posts',{
@@ -34,35 +47,18 @@ const Home  = ()=>{
         })
     }
    return (
-          data?       
-          <div>
+        <HomeWrapper>
            {
                data.map(item=>{
                    return(
-                       <div key={item._id}>
-                            <h1 >
-                              <i className="material-icons" onClick={()=>deletePost(item._id)}>delete</i>
-                            
-                            </h1>
-                            <Link to={`/post/${item._id}`}>
-                            <div>
-                                <img src={item.pic} alt=""/>
-                            </div>
-                                <h1>{item.title}</h1>
-                                <p>{item.recipe}</p>
-                                <p>{item.ingredient} </p>
-                              </Link>
-
-                                </div>
-                           
+                      <Card key={item._id} item={item} deletePost={deletePost} />                           
                    )
                })
            }
           
           
-       </div>:
-       <h1>err</h1>
-   )
+       </HomeWrapper>
+          )
 }
   
 export default Home;
