@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Link,  useHistory} from 'react-router-dom';
-import styled from "styled-components";
-import {Container} from "../style"
+import "../Styles/Signup.css";
+
 const Signup = ()=>{
 
     const history = useHistory();
@@ -38,29 +38,9 @@ const Signup = ()=>{
     }
     const PostData = ()=>uploadFields();
 
-    const SignupWrapper=styled.div`
-    width:900px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:Center;
-    & h2 {
-        font-size:30px;
-        margin:30px;
-    }
-    & input {
-        padding:10px;
-        margin:10px;
-    }
-    & button {
-        width:73%;
-    }
-
-`;
-
     return(
- <Container>
-    <SignupWrapper>
+ <div className="container">
+    <div className="signupWrapper">
       <h2>MyRecipes</h2>
       <input
       type="text"
@@ -88,8 +68,8 @@ const Signup = ()=>{
       <h2>
           <Link to="/signin">Login</Link>
       </h2>
-      </SignupWrapper>
-  </Container>
+      </div>
+  </div>
     );
 }
 

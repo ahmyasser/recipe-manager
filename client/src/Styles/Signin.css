@@ -1,0 +1,19 @@
+.signinWrapper{
+width:900px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+align-items:Center;
+}
+.signinWrapper h2 {
+    font-size:30px;
+    margin:30px;
+}
+.signinWrapper input {
+    padding:10px;
+    margin:10px;
+}
+.signinWrapper button {
+    width:73%;
+}
+

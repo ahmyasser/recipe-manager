@@ -1,17 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import styled from "styled-components";
 
 import Card from '../Components/Card'
 
+import '../Styles/Home.css'
+
 const Home  = ()=>{
 
-    const HomeWrapper = styled.section`
-    width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-  `;
 
 
 
@@ -47,7 +41,7 @@ const Home  = ()=>{
         })
     }
    return (
-        <HomeWrapper>
+        <div className="homeWrapper">
            {
                data.map(item=>{
                    return(
@@ -57,7 +51,7 @@ const Home  = ()=>{
            }
           
           
-       </HomeWrapper>
+       </div>
           )
 }
   

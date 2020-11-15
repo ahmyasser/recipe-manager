@@ -1,9 +1,8 @@
 import {useState,useContext,} from 'react'
 import {Link,useHistory} from 'react-router-dom'
 import {UserContext} from '../App'
-import styled from "styled-components";
-import { Container } from "../style";
-import Signup from './Signup';
+import "../Styles/Signin.css";
+
 
 const Signin  = ()=>{
     const {dispatch} = useContext(UserContext)
@@ -42,28 +41,9 @@ const Signin  = ()=>{
     }
 
 
-    const SignupWrapper=styled.div`
-    width:900px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    align-items:Center;
-    & h2 {
-        font-size:30px;
-        margin:30px;
-    }
-    & input {
-        padding:10px;
-        margin:10px;
-    }
-    & button {
-        width:73%;
-    }
-
-`;
    return (
-      <Container>
-          <SignupWrapper>
+      <div className="container">
+          <div className="signinWrapper">
             <h2>MyRecipes</h2>
             <input
             type="text"
@@ -86,8 +66,8 @@ const Signin  = ()=>{
                 <Link to="/signup">Sign Up</Link>
             </h2>
            
-        </SignupWrapper>
-      </Container>
+        </div>
+      </div>
    )
 }
   export default Signin;

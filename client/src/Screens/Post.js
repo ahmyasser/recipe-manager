@@ -1,13 +1,11 @@
 import {useState, useEffect} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
 
-import styled from "styled-components";
-import {Container} from '../style';
-
+import '../Styles/Post.css'
 
 const Post=() => {
 
-    let { post_id } = useParams();
+    let { post_id } = useParams()
   const history = useHistory()
 
   const [title,setTitle] = useState("")
@@ -98,76 +96,54 @@ const postDetails = ()=>{
     })
 }
 
-const UpdateWrapper = styled.div`
-width:900px;
-display:flex;
-justify-content:space-between;
-align-items:Center;
-`;
 
-
-const ViewWrapper = styled.div`
-margin-right:20px;
-& img {
-    height:60vh;
-    width:80vh;
-    }
-    
-`;
-
-const Wraper= styled.div`
-display:flex;
-flex-direction:column;
-`;
 
 
     return (
-      <Container>
-      <UpdateWrapper>
+    <div className="container">
+        <div className="postWrapper">
 
-      <ViewWrapper>
-      <h1>
-      <Link to="" onClick={()=>deletePost(post_id)}>delete</Link>
-      </h1>
-          <img src={url} alt=""/>
-      </ViewWrapper>
-      <Wraper>
-      <input 
-          type="text"
-           placeholder="title"
-           value={title}
-           onChange={(e)=>setTitle(e.target.value)}
-           />
-          <input
-           type="text"
+            <div className="viewWrapper">
+                <h1>
+                    <Link to="" onClick={()=>deletePost(post_id)}>delete</Link>
+                </h1>
+                <img src={url} alt=""/>
+            </div>
+      
+            <div className="updateWrapper">
+      
+            <input 
+            type="text"
+            placeholder="title"
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)}
+            />
+            <input
+            type="text"
             placeholder="recipe"
             value={recipe}
             onChange={(e)=>setRecipe(e.target.value)}
             />
             <input
             type="text"
-             placeholder="ingredient"
-             value={ingredient}
-             onChange={(e)=>setIngredient(e.target.value)}
-             />
-          <div>
-           <div>
+            placeholder="ingredient"
+            value={ingredient}
+            onChange={(e)=>setIngredient(e.target.value)}
+            />
+        <div>
+            <div>
                <span>Uplaod Image</span>
                <input type="file" onChange={(e)=>setImage(e.target.files[0])} />
            </div>
-           </div>
-           <button onClick={()=>{updateMessage()}}>
+        </div>
+        <button onClick={()=>{updateMessage()}}>
                Submit update
-           </button>
-           </Wraper>
-      </UpdateWrapper>
+        </button>
+    </div>
+</div>
 
-          </Container>
-
-
-          
-
-        );
+</div>
+        )
   }
   
   export default Post;

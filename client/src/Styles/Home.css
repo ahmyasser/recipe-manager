@@ -1,0 +1,45 @@
+.homeWrapper {
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+}
+
+.cardWrapper{
+    margin:30px;
+    width:50vh;
+    height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-end;
+    border: 1px solid black;
+    border-radius:10px;
+}
+.cardWrapper h1 {
+    font-size: 17px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.cardWrapper h1 a{
+    margin-right:10px;
+    margin-bottom:10px;
+}
+    
+.cardWrapper img {
+    height:200px;
+    width:50vh;
+}
+    .cardWrapper a {
+    display:flex;
+    flex-direction:column;
+}
+    .cardWrapper a p {
+    margin:10px;
+}
+.cardWrapper a h1 {
+    padding:5px;
+    align-self:center;
+}
+    

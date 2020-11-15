@@ -1,0 +1,23 @@
+.postWrapper{ 
+    width:900px;
+    display:flex;
+    justify-content:space-between;
+    align-items:Center;
+}
+
+
+.viewWrapper {
+margin-right:20px;
+}
+
+.viewWrapper img {
+    height:60vh;
+    width:80vh;
+}
+    
+
+.updateWrapper{
+    display:flex;
+    flex-direction:column;
+}
+

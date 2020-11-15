@@ -1,42 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 
-import styled from "styled-components";
-import {Container} from '../style';
+import '../Styles/CreatePost.css'
 
 const CreatePost = ()=>{
-
-    const CreateWrapper = styled.div`
-    width:900px;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    & input {
-    margin:10px;
-    font-size:20px;
-    padding:3px;
-    width:50%;                                                
-    }
-    & button {
-        font-size:20px;
-        width:30%;
-        height:40px;
-        align-self:center;
-        color:black;
-        background-color: white;
-    }
-    
-    & button:hover {
-
-        background-color: black;
-        color:white;
-
-    }
-
-    `;
-
     const history = useHistory()
-
+    
     const [title,setTitle] = useState("")
     const [recipe,setRecipe] = useState("")
     const [ingredient,setIngredient] = useState("")
@@ -94,8 +63,8 @@ const CreatePost = ()=>{
  
 
    return(
-       <Container>
-       <CreateWrapper>
+       <div className="container">
+       <div className="createWrapper">
            <input 
            type="text"
             placeholder="Title"
@@ -124,8 +93,8 @@ const CreatePost = ()=>{
                 Submit post
             </button>
 
-       </CreateWrapper>
-       </Container>
+       </div>
+       </div>
    )
 }
 
