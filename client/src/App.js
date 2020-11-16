@@ -23,10 +23,8 @@ const Routing = ()=>{
 
     if(user)
         {history.push('/')
-      console.log(user);
       }
     else{
-      console.log('no token')
       history.push('/signin')
     }
   },[history,user])
