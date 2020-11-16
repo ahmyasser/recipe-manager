@@ -74,7 +74,6 @@ router.put('/updatepost/:postId',requireLogin,(req,res)=>{
             return res.status(401).json({error:'Unauthorized'})
             }
   
-            console.log(post)
          return res.json({post});
         })
     })
