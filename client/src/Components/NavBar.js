@@ -1,20 +1,18 @@
-import  {useContext} from 'react';
 import {Link } from 'react-router-dom';
-import { UserContext } from '../App';
+import {useSelector, useDispatch} from 'react-redux';
+import { signout } from "../store/actions/userActions";
 
 const Navbar = ()=>{
-  
-  const {state,dispatch} = useContext(UserContext)
+  const user = useSelector(state => state.requestUser.user);
+  const dispatch = useDispatch();
+
    const renderList = ()=>{
-    if(state){
+    if(user){
         return [
           
           <Link className="navItem" to="/create" key={1}>Create</Link>
           ,<Link className="navItem" to="/signin"
-         onClick={()=>{
-           localStorage.clear()
-           dispatch({type:"CLEAR"})
-         }}
+         onClick={()=> dispatch(signout)}
          key={2}
          >
              Logout
@@ -32,7 +30,7 @@ const Navbar = ()=>{
     return(
       <div className="container">
         <div className="navbarWrapper">
-          <Link to={state?'/':'/signin'} id="logo">MyRecipes</Link>
+          <Link to={user?'/':'/signin'} id="logo">MyRecipes</Link>
           <div>
             {renderList()}          
           </div>

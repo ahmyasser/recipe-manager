@@ -1,12 +1,19 @@
 import {useState, useEffect} from 'react'
 import {useParams, useHistory, Link} from 'react-router-dom'
+import {useSelector , useDispatch} from 'react-redux';
+import {requestPost, updatePost, deletePost} from '../store/actions/postActions';
+
+import Pending from '../Components/Pending'
 
 import '../Styles/Post.css'
 
 const Post=() => {
 
-    let { post_id } = useParams()
+  let { post_id } = useParams()
   const history = useHistory()
+ 
+  const {post, isPending} = useSelector(state => state.requestPosts);
+  const dispatch = useDispatch(); 
 
   const [title,setTitle] = useState("")
   const [recipe,setRecipe] = useState("")
@@ -15,52 +22,27 @@ const Post=() => {
   const [url,setUrl] = useState("")
 
   useEffect(()=>{
-     fetch(`/getpost/${post_id}`,{
-         headers:{
-             "Authorization":"Bearer "+localStorage.getItem("jwt")
-         }
-     }).then(res=>res.json())
-     .then(result=>{
-        setTitle(result.post.title);
-        setRecipe(result.post.recipe);
-        setIngredient(result.post.ingredient);
-        setUrl(result.post.pic);
-      
-     }).catch((err)=>{
-       console.log(err);
-     }
-     )
-  },[post_id])
+    requestPost(dispatch, post_id)  
+  },[dispatch, post_id])
+
+  useEffect( () => { 
+    if(!post)
+        history.push("/")
+    },[history, post]);
+
+    useEffect (()=>{
+    if(!isPending){
+        setTitle(post.title);
+        setRecipe(post.recipe);
+        setIngredient(post.ingredient);
+        setUrl(post.pic);
+}},[isPending,post])
 
 
   const updateMessage=()=>{
     
     if(image) postDetails();
-
-    fetch(`/updatepost/${post_id}`,{
-        method:"put",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer "+localStorage.getItem("jwt")
-            },
-            body:JSON.stringify({
-                title,
-                recipe,
-                ingredient,
-                pic:url
-            })
-        }).then(res=>res.json())
-    .then(result=>{
-       if(result.error){
-          console.log({html: result.error,classes:"#c62828 red darken-3"})
-       }
-       else{
-           console.log({html:"Updated Successfully",classes:"#43a047 green darken-1"});
-        }
-    }).catch(err=>{
-        
-        console.log(err)
-    })
+    updatePost(dispatch, post_id,title,recipe,ingredient,url); 
     
 }
 
@@ -83,29 +65,16 @@ const postDetails = ()=>{
  
 }
 
-
-  const deletePost = (postid)=>{
-    fetch(`/post/${postid}`,{
-        method:"delete",
-        headers:{
-            Authorization:"Bearer "+localStorage.getItem("jwt")
-        }
-    }).then(res=>res.json())
-    .then(_=>{
-        history.push('/')       
-    })
-}
-
-
-
-
+if(isPending)
+    return <Pending/>
+else
     return (
     <div className="container">
         <div className="postWrapper">
 
             <div className="viewWrapper">
                 <h1>
-                    <Link to="" onClick={()=>deletePost(post_id)}>delete</Link>
+                    <Link to="" onClick={()=>deletePost(dispatch,post_id)}>DELETE</Link>
                 </h1>
                 <img src={url} alt=""/>
             </div>
@@ -143,7 +112,7 @@ const postDetails = ()=>{
 </div>
 
 </div>
-        )
+)
   }
   
   export default Post;

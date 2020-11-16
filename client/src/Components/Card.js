@@ -1,13 +1,14 @@
 import {Link} from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import { deletePost} from '../store/actions/postActions';
 
 
-const Card  = ({deletePost,item})=>{
-
+const Card  = ({item})=>{
+    const dispatch = useDispatch(); 
    return (
-          item? 
             <div className="cardWrapper">
                 <h1>
-                    <Link to="" onClick={()=>deletePost(item._id)}>Delete</Link>    
+                    <Link to="" onClick={()=>deletePost(dispatch,item._id)}>Delete</Link>    
                 </h1>
                 <Link to={`/post/${item._id}`}>
                     <div>
@@ -17,7 +18,7 @@ const Card  = ({deletePost,item})=>{
                     <p><strong>Recipe:</strong> {item.recipe}</p>
                     <p><strong>ingredient:</strong> {item.ingredient} </p>
                 </Link>
-            </div>: null
+            </div>
    )                      
    
 }

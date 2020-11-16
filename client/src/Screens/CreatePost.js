@@ -1,45 +1,29 @@
 import React,{useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
+import { useSelector, useDispatch} from 'react-redux';
+import { createPost} from '../store/actions/postActions';
 
 import '../Styles/CreatePost.css'
 
 const CreatePost = ()=>{
     const history = useHistory()
-    
+    const dispatch = useDispatch(); 
+
     const [title,setTitle] = useState("")
     const [recipe,setRecipe] = useState("")
     const [ingredient,setIngredient] = useState("")
     const [image,setImage] = useState("")
     const [url,setUrl] = useState("")
+    
+    const isPending = useSelector(state => state.requestPosts.isPending);
+   
     useEffect(()=>{
        if(url){
-        fetch("/createpost",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer "+localStorage.getItem("jwt")
-            },
-            body:JSON.stringify({
-                title,
-                recipe,
-                ingredient,
-                pic:url
-            })
-        }).then(res=>res.json())
-        .then(data=>{
-    
-           if(data.error){
-              console.log({html: data.error,classes:"#c62828 red darken-3"})
-           }
-           else{
-               console.log({html:"Created post Successfully",classes:"#43a047 green darken-1"})
-               history.push('/')
-           }
-        }).catch(err=>{
-            console.log(err)
-        })
-    }
-    },[recipe, ingredient, history, title, url])
+        createPost(dispatch,title, recipe, ingredient, url);
+        if(!isPending)
+         history.push('/')   
+    }       
+    },[dispatch, history, ingredient, isPending, recipe, title, url])
   
    const postDetails = ()=>{
        const data = new FormData()
@@ -72,13 +56,13 @@ const CreatePost = ()=>{
             onChange={(e)=>setTitle(e.target.value)}
             />
            <input
-            type="textarea"
+            type="text"
              placeholder="Recipe"
              value={recipe}
             onChange={(e)=>setRecipe(e.target.value)}
              />
              <input
-             type="textarea"
+             type="text"
               placeholder="Ingredient"
               value={ingredient}
              onChange={(e)=>setIngredient(e.target.value)}

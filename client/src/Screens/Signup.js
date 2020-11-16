@@ -1,5 +1,8 @@
-import React,{useState} from 'react'
+import {useState,useEffect} from 'react'
 import {Link,  useHistory} from 'react-router-dom';
+import {useSelector , useDispatch} from 'react-redux';
+import {signup} from '../store/actions/userActions';
+
 import "../Styles/Signup.css";
 
 const Signup = ()=>{
@@ -8,36 +11,16 @@ const Signup = ()=>{
     const [name,setName] = useState("")
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
-    const uploadFields = ()=>{
-        if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-        console.log('invalid email');
-        return;
-        }
-        fetch("/signup",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                name,
-                password,
-                email
-            })
-        }).then(res=>res.json())
-        .then(data=>{
-           if(data.error){
-              console.log({html: data.error,classes:"#c62828 red darken-3"});
-           }
-           else{
-               console.log({html:data.message,classes:"#43a047 green darken-1"});
-               history.push('/login');
-           }
-        }).catch(err=>{
-            console.log(err);
-        })
-    }
-    const PostData = ()=>uploadFields();
+   
+    const state = useSelector(state => state);
+    const dispatch = useDispatch(); 
 
+    useEffect( () => { 
+        if(state.signup.success)
+            history.push("/signin")
+    },[history, state]);
+  
+ 
     return(
  <div className="container">
     <div className="signupWrapper">
@@ -61,9 +44,9 @@ const Signup = ()=>{
       onChange={(e)=>setPasword(e.target.value)}
       />
       <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
-      onClick={()=>PostData()}
+      onClick={()=>signup(dispatch,email,password,name)}
       >
-          SignUP
+          SignUp
       </button>
       <h2>
           <Link to="/signin">Login</Link>

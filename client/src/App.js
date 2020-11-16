@@ -1,8 +1,9 @@
-import {useEffect,createContext,useReducer,useContext} from 'react';
+import {useEffect} from 'react';
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+
 import "./App.css";
 
-import {reducer,initialState} from './reducers/userReducer'
 import NavBar from './Components/NavBar'
 import Home from './Screens/Home'
 import Post from './Screens/Post'
@@ -10,23 +11,25 @@ import Signin from './Screens/Signin'
 import Signup from './Screens/Signup'
 import CreatePost from './Screens/CreatePost'
 
-export const UserContext = createContext()
 
 
 const Routing = ()=>{
 
-
-
   const history = useHistory()
-  const {dispatch} = useContext(UserContext)
+
+  const user = useSelector(state => state.requestUser.user);
+ 
   useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem("user"))
-    if(user){
-      dispatch({type:"USER",payload:user})
-    }else{
-        history.push('/signin')
+
+    if(user)
+        {history.push('/')
+      console.log(user);
+      }
+    else{
+      console.log('no token')
+      history.push('/signin')
     }
-  },[dispatch, history])
+  },[history,user])
 
   return(
     <Switch>
@@ -51,16 +54,12 @@ const Routing = ()=>{
 }
 
 const App=() => {
-  const [state,dispatch] = useReducer(reducer,initialState)
-
 
   return (
-    <UserContext.Provider value={{state,dispatch}}>
     <BrowserRouter>
       <NavBar />
       <Routing />
     </BrowserRouter>
-    </UserContext.Provider>
   );
 }
 

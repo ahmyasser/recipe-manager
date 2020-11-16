@@ -1,51 +1,38 @@
-import React,{useState,useEffect} from 'react'
+import {useEffect} from 'react'
+import {useSelector , useDispatch} from 'react-redux'
 
 import Card from '../Components/Card'
+import Pending from '../Components/Pending'
+import Error from '../Components/Error'
+import {requestPosts} from '../store/actions/postActions'
 
 import '../Styles/Home.css'
 
 const Home  = ()=>{
 
-
-
-
-    const [data,setData] = useState([])
+    
+    const {isPending, posts, error} = useSelector(state => state.requestPosts);
+    const dispatch = useDispatch(); 
+    
     useEffect(()=>{
-       fetch('/posts',{
-           headers:{
-               "Authorization":"Bearer "+localStorage.getItem("jwt")
-           }
-       }).then(res=>res.json())
-       .then(result=>{
-           console.log(result)
-           setData(result.post)
-       }).catch((err)=>{
-         console.log(err);
-       }
-       )
-    },[])
+         requestPosts(dispatch)        
+    },[dispatch])
 
-    const deletePost = (postid)=>{
-        fetch(`/post/${postid}`,{
-            method:"delete",
-            headers:{
-                Authorization:"Bearer "+localStorage.getItem("jwt")
-            }
-        }).then(res=>res.json())
-        .then(result=>{
-            console.log(result)
-            const newData = data.filter(item=>{
-                return item._id !== result._id
-            })
-            setData(newData)
-        })
-    }
-   return (
+
+    if(isPending)   
+        return <Pending/> 
+    
+
+    else    
+    if(error)  
+        return <Error/> 
+    else
+        return (
         <div className="homeWrapper">
            {
-               data.map(item=>{
+                posts.map(item=>{
                    return(
-                      <Card key={item._id} item={item} deletePost={deletePost} />                           
+                      <Card key={item._id} item={item} data={posts} />                           
                    )
                })
            }
@@ -53,6 +40,7 @@ const Home  = ()=>{
           
        </div>
           )
+    
 }
   
 export default Home;

@@ -1,44 +1,24 @@
-import {useState,useContext,} from 'react'
+import {useState,useEffect} from 'react'
 import {Link,useHistory} from 'react-router-dom'
-import {UserContext} from '../App'
+import {useSelector , useDispatch} from 'react-redux';
 import "../Styles/Signin.css";
 
+import {requestUser} from '../store/actions/userActions';
 
 const Signin  = ()=>{
-    const {dispatch} = useContext(UserContext)
     const history = useHistory()
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
-    const PostData = ()=>{
-        if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-            return console.log("invalid email")
-        }
-        fetch("/login",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                password,
-                email
-            })
-        }).then(res=>res.json())
-        .then(data=>{
-            
-           if(data.error){
-              console.log(data.error);
-           }
-           else{
-               localStorage.setItem("jwt",data.token)
-               localStorage.setItem("user",JSON.stringify(data.user))
-               dispatch({type:"USER",payload:data.user})
-               console.log("success");
-               history.push('/')
-           }
-        }).catch(err=>{
-            console.log(err)
-        })
-    }
+
+    const user = useSelector(state => state.requestUser.user);
+    const dispatch = useDispatch(); 
+
+    
+    useEffect( () => { 
+        if(user)
+            history.push("/")
+    },[history, user]);
+    
 
 
    return (
@@ -58,7 +38,7 @@ const Signin  = ()=>{
             onChange={(e)=>setPasword(e.target.value)}
             />
             <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
-            onClick={()=>PostData()}
+            onClick={()=>requestUser(dispatch,email,password)}
             >
                 Login
             </button>
