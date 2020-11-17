@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import "./App.css";
 
@@ -16,18 +16,20 @@ import CreatePost from './Screens/CreatePost'
 const Routing = ()=>{
 
   const history = useHistory()
-
-  const user = useSelector(state => state.requestUser.user);
+  const dispatch = useDispatch();
  
   useEffect(()=>{
-
+    let user = localStorage.getItem("user")
+    let token = localStorage.getItem("jwt")
     if(user)
-        {history.push('/')
+        {
+          dispatch({type:"REQUEST_USER_SUCCESS",payload:{user,token}})
+          history.push('/')
       }
     else{
       history.push('/signin')
     }
-  },[history,user])
+  },[history,dispatch])
 
   return(
     <Switch>

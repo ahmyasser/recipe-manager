@@ -2,7 +2,7 @@ import * as constants from '../constants'
 
 const intialStateUser={
     isPending: false,
-    user:null,
+    user:{},
     error:''
 }
 export const requestUser = (state=intialStateUser, action={})=>{
