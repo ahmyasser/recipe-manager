@@ -24,7 +24,7 @@ export const requestUser= (dispatch,email,password)=>{
 
 
 export const signup= (dispatch,email,password,name)=>{
-    
+    dispatch({type:constants.SIGNUP_PENDING});    
     if(!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email))
         
         dispatch({type:constants.SIGNUP_FAILED, payload:"Invalid Email"})

@@ -26,16 +26,20 @@ export const requestUser = (state=intialStateUser, action={})=>{
 
 
 const intialStateSignup={
-    success:false,
+    data: {},
+    isPending:false,
     error:''
 }
 export const signup = (state=intialStateSignup, action={})=>{
     switch (action.type) {    
+        case constants.SIGNUP_PENDING:
+            return Object.assign({},state,{isPending:true});
+
         case constants.SIGNUP_SUCCESS:
-            return Object.assign({},state,{success:true});
+            return Object.assign({},state,{isPending:false, data:action.payload});
         
         case constants.SIGNUP_FAILED:
-            return Object.assign({},state,{error:action.payload});
+            return Object.assign({},state,{isPending:false, error:action.payload});
            
         default:
             return state;

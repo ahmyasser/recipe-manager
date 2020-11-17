@@ -23,7 +23,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
         res.json({post:result})
     })
     .catch(err=>{
-        console.log(err)
+        return res.status(422).json({error:err})
     })
 })
 
@@ -33,7 +33,7 @@ router.get('/posts',requireLogin,(req,res)=>{
         res.json({post})
     })
     .catch(err=>{
-        console.log(err)
+        return res.status(422).json({error:err})
     })
 })
 
@@ -47,7 +47,7 @@ router.get('/getpost/:postId',requireLogin,(req,res)=>{
         return res.json({post})
     })
     .catch(err=>{
-       return console.log(err)
+        return res.status(422).json({error:err})
     })
 })
 
@@ -91,7 +91,7 @@ router.delete('/post/:postId',requireLogin,(req,res)=>{
               .then(result=>{
                   res.json(result)
               }).catch(err=>{
-                  console.log(err)
+                return res.status(422).json({error:err})
               })
         }
     })

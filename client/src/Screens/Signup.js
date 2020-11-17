@@ -2,6 +2,8 @@ import {useState,useEffect} from 'react'
 import {Link,  useHistory} from 'react-router-dom';
 import {useSelector , useDispatch} from 'react-redux';
 import {signup} from '../store/actions/userActions';
+import Error from '../Components/Error';
+
 
 import "../Styles/Signup.css";
 
@@ -11,14 +13,13 @@ const Signup = ()=>{
     const [name,setName] = useState("")
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
-   
-    const state = useSelector(state => state);
+    const {message,error} = useSelector(state => state.signup.data);
     const dispatch = useDispatch(); 
 
     useEffect( () => { 
-        if(state.signup.success)
+        if(message)
             history.push("/signin")
-    },[history, state]);
+        },[history,message,error]);
   
  
     return(
@@ -51,6 +52,8 @@ const Signup = ()=>{
       <h2>
           <Link to="/signin">Login</Link>
       </h2>
+      <Error msg={error}/>
+
       </div>
   </div>
     );
