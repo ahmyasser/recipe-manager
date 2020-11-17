@@ -61,8 +61,8 @@ router.post('/login',(req,res)=>{
                 return res.status(422).json({error:"Invalid Email or password"})
             }
         })
-        .catch(err=>{
-            console.log(err)
+        .catch(error=>{
+            return res.status(422).json({error})
         })
     })
 })

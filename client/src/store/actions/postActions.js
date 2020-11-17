@@ -76,8 +76,6 @@ export const updatePost = (dispatch,postid,title,recipe,ingredient,pic)=>{
             })
         })
     .then(response => response.json())
-    .then(data =>{
-        console.log(data);
-        dispatch({type:constants.UPDATE_POST_SUCCESS, payload:data.post})})
+    .then(data =>dispatch({type:constants.UPDATE_POST_SUCCESS, payload:data.post}))
     .catch(error=> dispatch({type:constants.UPDATE_POST_FAILED, payload:error}))   
 }

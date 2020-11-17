@@ -11,7 +11,7 @@ export const requestUser = (state=intialStateUser, action={})=>{
             return Object.assign({},state,{isPending:true});
             
         case constants.REQUEST_USER_SUCCESS:
-            return Object.assign({},state,{isPending:false, user:action.payload});
+            return Object.assign({},state,{isPending:false, user:action.payload.user, error:action.payload.error});
         
         case constants.REQUEST_USER_FAILED:
             return Object.assign({},state,{isPending:false, error:action.payload});

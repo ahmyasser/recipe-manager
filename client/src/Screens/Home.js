@@ -22,23 +22,21 @@ const Home  = ()=>{
     if(isPending)   
         return <Pending/> 
     
-
     else    
     if(error)  
-        return <Error/> 
+        return <Error msg={error}/> 
     else
-        return (
-        <div className="homeWrapper">
-           {
-                posts.map(item=>{
-                   return(
-                      <Card key={item._id} item={item} data={posts} />                           
-                   )
-               })
-           }
-          
-          
-       </div>
+        if(posts)
+            return (
+            <div className="homeWrapper">
+                {
+                    posts.map(item=>{
+                    return(
+                          <Card key={item._id} item={item} data={posts} />                           
+                        )
+                    })
+                }
+          </div>
           )
     
 }

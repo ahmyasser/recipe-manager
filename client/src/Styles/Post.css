@@ -1,16 +1,22 @@
+
 .postWrapper{ 
-    width:900px;
+    width:1100;
     display:flex;
     justify-content:space-between;
     align-items:Center;
+    
 }
 
+.postWrapper div {
+    width: 100%;
+    }
 
 .viewWrapper {
-margin-right:20px;
+padding-right:10vh;
+margin-left: 35vh;
 }
 
-.viewWrapper img {
+.viewWrapper img {   
     height:60vh;
     width:80vh;
 }
@@ -20,4 +26,30 @@ margin-right:20px;
     display:flex;
     flex-direction:column;
 }
+input {
+    width: 100%;
+}
 
+@media(max-width: 1024px){
+    .postWrapper {
+        flex-direction: column;
+        padding-bottom: 10vh;
+    }
+    .viewWrapper {
+        padding-right:0;
+        margin-left: 0;
+    }
+ 
+} 
+
+@media(max-width: 600px){
+    
+    
+    .viewWrapper img {   
+        height:50vh;
+         width:50vh;
+    }
+    input {
+        width: 70%;
+    }
+}

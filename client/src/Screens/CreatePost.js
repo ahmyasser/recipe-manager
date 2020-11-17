@@ -3,6 +3,8 @@ import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux';
 import { createPost} from '../store/actions/postActions';
 
+import Error from '../Components/Error'
+
 import '../Styles/CreatePost.css'
 
 const CreatePost = ()=>{
@@ -14,6 +16,7 @@ const CreatePost = ()=>{
     const [ingredient,setIngredient] = useState("")
     const [image,setImage] = useState("")
     const [url,setUrl] = useState("")
+    const [error,setError] = useState("")
     
     const isPending = useSelector(state => state.requestPosts.isPending);
    
@@ -39,8 +42,8 @@ const CreatePost = ()=>{
           setUrl(data.url)
        })
        .catch(err=>{
-           console.log(err)
-       })
+          setError(err);
+    })
 
     
    }
@@ -76,7 +79,7 @@ const CreatePost = ()=>{
             <button onClick={()=>postDetails()}>
                 Submit post
             </button>
-
+            <Error msg={error}/>
        </div>
        </div>
    )

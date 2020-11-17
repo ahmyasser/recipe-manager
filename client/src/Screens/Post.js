@@ -4,6 +4,7 @@ import {useSelector , useDispatch} from 'react-redux';
 import {requestPost, updatePost, deletePost} from '../store/actions/postActions';
 
 import Pending from '../Components/Pending'
+import Error from '../Components/Error'
 
 import '../Styles/Post.css'
 
@@ -20,6 +21,7 @@ const Post=() => {
   const [ingredient,setIngredient] = useState("")
   const [image,setImage] = useState("")
   const [url,setUrl] = useState("")
+  const [error,setError] = useState("")
 
   useEffect(()=>{
     requestPost(dispatch, post_id)  
@@ -60,7 +62,7 @@ const postDetails = ()=>{
        setUrl(data.url)
     })
     .catch(err=>{
-        console.log(err)
+        setError(err);
     })
  
 }
@@ -73,9 +75,9 @@ else
         <div className="postWrapper">
 
             <div className="viewWrapper">
-                <h1>
+                <h2>
                     <Link to="" onClick={()=>deletePost(dispatch,post_id)}>DELETE</Link>
-                </h1>
+                </h2>
                 <img src={url} alt=""/>
             </div>
       
@@ -109,6 +111,7 @@ else
                Submit update
         </button>
     </div>
+    <Error msg={error}/>
 </div>
 
 </div>

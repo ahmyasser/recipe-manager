@@ -10,8 +10,9 @@ a {
 
 button {
     font-size:20px;
-    width:50%;
+    width:auto;
     height:40px;
+    padding: 5px;
     align-self:center;
     color:black;
     background-color: white;

@@ -1,12 +1,13 @@
 
 
-const Error = () => {
+const Error = ({msg}) => {
 
 
     return(
+
         <div className="container">
-        <h1>
-        Error
+        <h1 style={{color:"red"}}>
+        {msg}
    </h1>
    </div>
 
