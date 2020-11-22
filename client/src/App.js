@@ -23,6 +23,7 @@ const Routing = ()=>{
     let token = localStorage.getItem("jwt")
     if(user)
         {
+          console.log('here ' + user);
           dispatch({type:"REQUEST_USER_SUCCESS",payload:{user,token}})
           history.push('/')
       }
